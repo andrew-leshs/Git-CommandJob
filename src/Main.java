@@ -52,6 +52,19 @@ public class Main {
             try {
                 productNumber = Integer.parseInt(parts[0]) - 1;
                 productCount = Integer.parseInt(parts[1]);
+                try {
+                    if (amount[productNumber] + productCount < 0) {
+                        System.out.println("Внимание! Количество товара не может быть отрицательным!");
+                        continue;
+                    }
+
+                    if (productCount == 0) {
+                        amount[productNumber] = 0;
+                    }
+                } catch (ArrayIndexOutOfBoundsException e) {
+
+                }
+
             } catch (NumberFormatException e) {
                 System.out.println("Внимание! Вводить необходимо только числа. Вы же ввели: " + input);
                 continue;
@@ -67,11 +80,6 @@ public class Main {
                 continue;
             }
 
-            if (productCount <= 0) {
-                System.out.println("Внимание! \"КОЛИЧЕСТВО ПРОДУКТА\" может быть только положительным числом. Вы же ввели: " + productCount);
-                continue;
-            }
-
             if (productNumber < products.length) {
                 amount[productNumber] += productCount;
                 int sumProducts = productCount * prices[productNumber];
@@ -79,6 +87,14 @@ public class Main {
             } else {
                 saleNumber = productNumber - products.length;
                 saleCount = productCount;
+                if (saleAmount[saleNumber] + saleCount < 0) {
+                    System.out.println("Внимание! Количество товара не может быть отрицательным!");
+                    continue;
+                }
+
+                if (saleCount == 0) {
+                    saleAmount[saleNumber] = 0;
+                }
                 saleAmount[saleNumber] += saleCount;
             }
         }
@@ -86,7 +102,8 @@ public class Main {
         System.out.println("Ваша корзина: ");
         for (int i = 0; i < amount.length; i++) {
             if (amount[i] != 0) {
-                System.out.println(products[i] + " " + amount[i] + " шт " + prices[i] + " руб/шт " + (amount[i] * prices[i]) + " руб в сумме.");
+                System.out.println(products[i] + " " + amount[i] + " шт " + prices[i] + " руб/шт "
+                        + (amount[i] * prices[i]) + " руб в сумме.");
             }
         }
 
