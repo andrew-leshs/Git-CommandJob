@@ -20,9 +20,10 @@ public class Main {
 
         while (true) {
             System.out.println("Введите номер продукта и его количество через пробел. Для оформления корзины введите \"end\".");
+
             String input = scanner.nextLine();
 
-            if (input.equals("") || input.equals(" ")) {
+            if (input.equals("") || input.equals(" ")) { // если пользователь введет пробел или просто оставит пустую строку;
                 System.out.println("Внимание! Вводить необходимо только числа. Вы же ввели пробел или оставили пустую строку.");
                 continue;
             }
@@ -32,6 +33,7 @@ public class Main {
             }
 
             String[] parts = input.split(" ");
+
             if (parts.length != 2) {
                 System.out.println("Внимание! Вводить необходимо только два числовых значения! Вы же ввели: " + input);
                 continue;
@@ -40,6 +42,14 @@ public class Main {
             try {
                 productNumber = Integer.parseInt(parts[0]) - 1;
                 productCount = Integer.parseInt(parts[1]);
+                if (amount[productNumber] + productCount < 0) {
+                    System.out.println("Внимание! Количество товара не может быть отрицательным!");
+                    continue;
+                }
+
+                if (productCount == 0) {
+                    amount[productNumber] = 0;
+                }
             } catch (NumberFormatException e) {
                 System.out.println("Внимание! Вводить необходимо только числа. Вы же ввели: " + input);
                 continue;
@@ -55,23 +65,18 @@ public class Main {
                 continue;
             }
 
-            if (productCount <= 0) {
-                System.out.println("Внимание! \"КОЛИЧЕСТВО ПРОДУКТА\" может быть только положительным числом. Вы же ввели: " + productCount);
-                continue;
-            }
-
             amount[productNumber] += productCount;
-            int sumProducts = productCount * prices[productNumber];
+            int currentPrice = prices[productNumber];
+            int sumProducts = currentPrice * productCount;
             sum += sumProducts;
         }
 
         System.out.println("Ваша корзина: ");
         for (int i = 0; i < amount.length; i++) {
             if (amount[i] != 0) {
-                System.out.println(products[i] + " " + amount[i] + " шт " + prices[i] + " руб/шт "
-                        + (amount[i] * prices[i]) + " руб в сумме.");
+                System.out.println(products[i] + " " + amount[i] + " шт " + prices[i] + " руб/шт " + (amount[i] * prices[i]) + " руб в сумме.");
             }
         }
         System.out.println("Итого: " + sum + " руб.");
     }
-}
+} 
