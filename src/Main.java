@@ -87,7 +87,6 @@ public class Main {
             } else {
                 saleNumber = productNumber - products.length;
                 saleCount = productCount;
-                saleAmount[saleNumber] += saleCount;
                 if (saleAmount[saleNumber] + saleCount < 0) {
                     System.out.println("Внимание! Количество товара не может быть отрицательным!");
                     continue;
@@ -96,6 +95,7 @@ public class Main {
                 if (saleCount == 0) {
                     saleAmount[saleNumber] = 0;
                 }
+                saleAmount[saleNumber] += saleCount;
             }
         }
 
