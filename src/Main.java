@@ -60,6 +60,8 @@ public class Main {
 
                     if (productCount == 0) {
                         amount[productNumber] = 0;
+                        sum -= prices[productNumber];
+
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
 
