@@ -59,9 +59,8 @@ public class Main {
                     }
 
                     if (productCount == 0) {
+                        sum -= prices[productNumber] * amount[productNumber];
                         amount[productNumber] = 0;
-                        sum -= prices[productNumber];
-
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
 
